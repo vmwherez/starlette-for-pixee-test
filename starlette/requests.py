@@ -146,8 +146,7 @@ class HTTPConnection(typing.Mapping[str, typing.Any]):
     @property
     def client(self) -> Address | None:
         # client is a 2 item tuple of (host, port), None or missing
-        host_port = self.scope.get("client")
-        if host_port is not None:
+        if (host_port := self.scope.get("client")) is not None:
             return Address(*host_port)
         return None
 

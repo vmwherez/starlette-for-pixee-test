@@ -79,9 +79,8 @@ class CORSMiddleware:
 
         method = scope["method"]
         headers = Headers(scope=scope)
-        origin = headers.get("origin")
 
-        if origin is None:
+        if (origin := headers.get("origin")) is None:
             await self.app(scope, receive, send)
             return
 

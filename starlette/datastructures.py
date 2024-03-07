@@ -671,8 +671,7 @@ class MutableHeaders(Headers):
         self._list.append((append_key, append_value))
 
     def add_vary_header(self, vary: str) -> None:
-        existing = self.get("vary")
-        if existing is not None:
+        if (existing := self.get("vary")) is not None:
             vary = ", ".join([existing, vary])
         self["vary"] = vary
 

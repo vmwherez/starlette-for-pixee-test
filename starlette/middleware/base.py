@@ -171,8 +171,7 @@ class BaseHTTPMiddleware:
                 async with recv_stream:
                     async for message in recv_stream:
                         assert message["type"] == "http.response.body"
-                        body = message.get("body", b"")
-                        if body:
+                        if body := message.get("body", b""):
                             yield body
                         if not message.get("more_body", False):
                             break

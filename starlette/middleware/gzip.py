@@ -44,8 +44,7 @@ class GZipResponder:
         await self.app(scope, receive, self.send_with_gzip)
 
     async def send_with_gzip(self, message: Message) -> None:
-        message_type = message["type"]
-        if message_type == "http.response.start":
+        if (message_type := message["type"]) == "http.response.start":
             # Don't send the initial message until we've determined how to
             # modify the outgoing headers correctly.
             self.initial_message = message

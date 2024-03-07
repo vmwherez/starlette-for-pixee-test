@@ -54,8 +54,7 @@ def build_environ(scope: Scope, body: bytes) -> dict[str, typing.Any]:
 
     # Go through headers and make them into environ entries
     for name, value in scope.get("headers", []):
-        name = name.decode("latin1")
-        if name == "content-length":
+        if (name := name.decode("latin1")) == "content-length":
             corrected_name = "CONTENT_LENGTH"
         elif name == "content-type":
             corrected_name = "CONTENT_TYPE"

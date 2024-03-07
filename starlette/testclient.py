@@ -808,8 +808,7 @@ class TestClient(httpx.Client):
         await self.stream_receive.send({"type": "lifespan.startup"})
 
         async def receive() -> typing.Any:
-            message = await self.stream_send.receive()
-            if message is None:
+            if (message := await self.stream_send.receive()) is None:
                 self.task.result()
             return message
 
@@ -823,8 +822,7 @@ class TestClient(httpx.Client):
 
     async def wait_shutdown(self) -> None:
         async def receive() -> typing.Any:
-            message = await self.stream_send.receive()
-            if message is None:
+            if (message := await self.stream_send.receive()) is None:
                 self.task.result()
             return message
 

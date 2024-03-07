@@ -230,8 +230,7 @@ class ServerErrorMiddleware:
 
         exc_html = ""
         is_collapsed = False
-        exc_traceback = exc.__traceback__
-        if exc_traceback is not None:
+        if (exc_traceback := exc.__traceback__) is not None:
             frames = inspect.getinnerframes(exc_traceback, limit)
             for frame in reversed(frames):
                 exc_html += self.generate_frame_html(frame, is_collapsed)
